@@ -1,0 +1,10 @@
+[deps]
+CSV = "336ed68f-0bac-5ca0-87d4-7b16caf5d00b"
+Documenter = "e30172f5-a6a5-5a46-863b-614d45cd2de4"
+MeasurementErrorModels = "72f3c6a2-17b4-44ab-8cc4-fce0c1317a71"
+OptimizationOptimJL = "36348300-93cb-4f02-beb5-3c3902f8871e"
+ProfileLikelihood = "3fca794e-44fa-49a6-b6a0-8cd45572ba0a"
+
+
+[compat]
+Documenter = "0.27"
