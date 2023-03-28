@@ -31,5 +31,6 @@ end
 
 Dbpar = DataFrame(p=[-4:0.5:2;])
 Db = select(Dbpar, :p=>ByRow(p->lsf(p, D2[:, 2:end], lags=0:100))=>AsTable)
+Db
 ```
 

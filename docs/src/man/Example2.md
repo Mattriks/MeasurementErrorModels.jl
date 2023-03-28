@@ -28,6 +28,7 @@ end
 Bprior = Priors.makeprior(D2[:,2:4], MvNormal(μ₀, Σ₀), ip=1000.0)
 
 Dbs = Bout(D2[:,2:end], Bprior=Bprior, lags=0:100)
-combine(groupby(Dbs, :Dist), :value=>marginals=>AsTable)
+D3 = combine(groupby(Dbs, :Dist), :value=>marginals=>AsTable)
+D3
 ```
 
