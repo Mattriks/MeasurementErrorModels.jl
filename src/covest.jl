@@ -27,7 +27,7 @@ The underlying matrix Ω is assumed to be toeplitz for lags `lags`.
 function Omegav(V::AbstractVector, εV::AbstractVector; lags=0:25)
     n = size(V,1)
     acf = autocor(V, lags)
-    R = toeplitz(acf, n)
+    R = Matrix(toeplitz(acf, n))
     Rm = nearPD(0.5*(R+transpose(R)))
     Σv = Diagonal(εV)
     Ωy = Σv'*Rm*Σv
@@ -45,12 +45,10 @@ The underlying Ω matrices are assumed to be toeplitz for lags `lags`.
 function SigmaA(A::AbstractMatrix, εA::AbstractMatrix; lags=0:25)
     n, p = size(A)
     ccf = crosscor(A, A, lags)
-    Ωs = [toeplitz(ccf[:,j,k], n)  for j in axes(ccf,2), k in axes(ccf,3)] 
+    Ωs = [Matrix(toeplitz(ccf[:,j,k], n))  for j in axes(ccf,2), k in axes(ccf,3)] 
     # R = cross-correlation matrix
     R = hvcat(p, Ωs...)
-#    @show R[1:5, 1:5]
     Rm = nearPD(0.5*(R+transpose(R)))
-#    return Rm
     Σa = Diagonal(vec(εA))
     ΣA = Σa'*Rm*Σa
     return 0.5*(ΣA+ΣA')
