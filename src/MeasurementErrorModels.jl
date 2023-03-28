@@ -4,7 +4,7 @@ using LinearAlgebra, SparseArrays, Statistics
 using DataFrames, Distributions
 import Measurements as Mm
 
-export Bout, dataf, wtls, hloglik
+export Bmem, Bout, dataf, wtls, hloglik
 export CovEst, Priors
 
 
