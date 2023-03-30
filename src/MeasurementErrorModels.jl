@@ -5,7 +5,7 @@ using DataFrames, Distributions
 import Measurements as Mm
 
 export Bmem, Bout, dataf, wtls, hloglik
-export CovEst, Priors
+export CovEst, Priors, TestMod
 
 
 
@@ -152,7 +152,7 @@ end
 
 include("priors.jl")
 include("covest.jl")
-
+include("testmod.jl")
 
 
 ########## Maximum-likehood solution of Hannart et al. (2014) (modified)  ##########
