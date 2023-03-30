@@ -1,6 +1,7 @@
 using MeasurementErrorModels
-using Test
+using Test, Random
 using CSV, DataFrames, Distributions
+using LinearAlgebra
 import Measurements as Mm
 
 #@ @testset "MeasurementErrorModels.jl" begin
@@ -19,4 +20,19 @@ import Measurements as Mm
 end
 
 
+@testset "CovEst" begin
+    p = [0.0, 1.14, -0.22]
+    lags = 200
+    Random.seed!(1234)
+    A, ΣA = TestMod.Asim(p, lags)
+    σA = ones(lags, 2)
+    SA = CovEst.SigmaA(A, σA, lags=0:50)
+    @test norm(ΣA - SA, Inf)<0.5    
+
+    Random.seed!(1234)
+    V, Σv = TestMod.Vsim(p, lags)
+    σV = ones(lags)
+    Sv = CovEst.Omegav(V, σV, lags=0:50)
+    @test norm(Σv - Sv, Inf)<0.5
+end
 
