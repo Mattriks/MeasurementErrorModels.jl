@@ -16,6 +16,7 @@ ToeplitzMatrices = "c751599d-da0a-543b-9d20-d0a503d91d24"
 [compat]
 DataFrames = "1"
 Distributions = "0.25"
+Measurements = "2"
 StatsBase = "0.33"
 ToeplitzMatrices = "0.8"
 julia = "1.7"
