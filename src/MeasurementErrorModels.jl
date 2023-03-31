@@ -25,7 +25,7 @@ function BBml(e, W::T, Xa::T, ΣA::AbstractMatrix, BI::T) where T<:AbstractMatri
     AW = U(e, W, ΣA, BI)
     m1 = (Xa'/W + AW)
     iXtX = inv(m1*Xa)
-    M = m1 * Σ * m1'  # W or Σ?
+    M = m1 * Σ * m1'
     BB = (iXtX * (M) * (iXtX'))
     return 0.5*(BB+BB')
 end

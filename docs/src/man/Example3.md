@@ -3,7 +3,7 @@
 
 # Example 3
 
-This example shows that the algorithm of Hannart et al. (2014) and the WTLS algorithm in Appendix B and C lead to approximately the same basic ML solution.
+This example shows that the algorithm of Hannart et al. (2014) and the WTLS algorithm in Appendix C and D lead to approximately the same basic ML solution.
 
 ```@example 3
 using CSV, DataFrames, OptimizationOptimJL, Distributions
