@@ -18,13 +18,13 @@ function toeplitz(r, n::Int)
 end
 
 """
-    Omegav(A::AbstractMatrix, εV::AbstractMatrix; lags=0:25)
+    OmegaV(V::AbstractVector, εV::AbstractVector; lags=0:25)
 
-Estimate covariance matrix ``\\Omega_v`` from the error vector `V`, subject to known `εV`.
+Estimate covariance matrix ``\\Omega_V`` from the error vector `V`, subject to known `εV`.
 ``n``-length vector `εV` is the heteroscedastic standard deviation of ``V``.
 The underlying matrix Ω is assumed to be toeplitz for lags `lags`.
 """
-function Omegav(V::AbstractVector, εV::AbstractVector; lags=0:25)
+function OmegaV(V::AbstractVector, εV::AbstractVector; lags=0:25)
     n = size(V,1)
     acf = autocor(V, lags)
     R = Matrix(toeplitz(acf, n))
@@ -58,12 +58,9 @@ end
 
 function nearPD(M::AbstractMatrix; ep=eps(Float64))
     L, V = eigen(M)
-#    @show L
     BB = V*Diagonal(max.(L, 10*ep))*(V')
     T = 1.0./sqrt.(diag(BB))
-#    @show T
     TT = T .* T'
-#    @show size(TT)
     z = BB .* TT
     return 0.5*(z+z') 
 end
