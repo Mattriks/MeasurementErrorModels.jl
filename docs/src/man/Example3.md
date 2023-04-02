@@ -3,7 +3,7 @@
 
 # Example 3
 
-This example shows that the algorithm of Hannart et al. (2014) and the WTLS algorithm in Appendix C and D lead to approximately the same basic ML solution.
+This example shows that maximizing the likelihood (Appendix F) and the WTLS algorithm (Appendix C and D) lead to approximately the same basic ML solution.
 
 ```@example 3
 using CSV, DataFrames, OptimizationOptimJL, Distributions
@@ -42,5 +42,5 @@ Bhml = [getci(prof, i) for i in [1 2 3]]
 Bml = wtls(D2[:,2:end])
 Bwtls = permutedims(mean(Bml) .± sqrt.(var(Bml)))
 Db = DataFrame([Bhml; Bwtls], [:b₀, :b₁, :b₂])
-insertcols!(Db, 1, :Method=>["HML","WTLS"])
+insertcols!(Db, 1, :Method=>["MLE","WTLS"])
 ```

@@ -35,7 +35,7 @@ end
     Random.seed!(1234)
     V, Σv = TestMod.Vsim(p, lags)
     σV = ones(lags)
-    Sv = CovEst.Omegav(V, σV, lags=0:50)
+    Sv = CovEst.OmegaV(V, σV, lags=0:50)
     @test norm(Σv - Sv, Inf)<0.5
 end
 

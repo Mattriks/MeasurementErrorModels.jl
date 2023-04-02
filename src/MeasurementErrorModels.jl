@@ -87,8 +87,8 @@ end
 
 function Af(e, W::AbstractMatrix, ΣA::AbstractMatrix, BI::AbstractMatrix)
     p = size(BI,1) ÷ size(BI,2)
-    A = -kron(I(p), (W\e)')*ΣA*BI
-    return permutedims(A)
+    A = -BI'ΣA*kron(I(p), W\e)
+    return A
 end
 
 
@@ -155,7 +155,7 @@ include("covest.jl")
 include("testmod.jl")
 
 
-########## Maximum-likehood solution of Hannart et al. (2014) (modified)  ##########
+########## Maximum-likehood estimation  ##########
 
 
 function hloglik(θ, data)
@@ -164,11 +164,10 @@ function hloglik(θ, data)
     b₀, B = θ[1], θ[2:end]
     Σa = sum([B[i]*B[i]*Ωa[i] for i in 1:p])
     e = Y .- b₀ .- X*B
-    We = (Ωv + Σa)\e
-    A = -reduce(hcat, [B[i]*Ωa[i]*We for i in 1:p])
-    Xstar = X - A
-    e1 = Y .-b₀ .- Xstar*B
-    ll = e1'/Ωv*e1 + sum([A[:,i]'/Ωa[i]*A[:,i] for i in 1:p])
+    W = (Ωv + Σa)
+    A = -reduce(hcat, [B[i]*Ωa[i]*(W\e) for i in 1:p])
+    V = Vf(e, W, Ωv)
+    ll = V'/Ωv*V + sum([A[:,i]'/Ωa[i]*A[:,i] for i in 1:p])
     return -0.5*ll
 end
 
